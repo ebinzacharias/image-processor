@@ -1,5 +1,6 @@
 from PIL import Image
 import os
+import argparse
 
 def compress_images_in_directory(input_dir, output_dir, quality, optimize):
     try:
@@ -28,8 +29,18 @@ def compress_images_in_directory(input_dir, output_dir, quality, optimize):
     except Exception as e:
         print(f"Error during image compression: {e}")
 
-input_image_directory = "images/"
-output_directory = "images/compressed/"
-compress_images_in_directory(input_image_directory, output_directory, quality=50, optimize=True)
+def main():
+    parser = argparse.ArgumentParser(description='Compress images in a directory')
+    parser.add_argument('input_dir', help='Input directory containing images')
+    parser.add_argument('output_dir', help='Output directory for compressed images')
+    parser.add_argument('--quality', type=int, default=50, help='JPEG quality (1-100, default: 50)')
+    parser.add_argument('--optimize', action='store_true', default=True, help='Optimize images (default: True)')
+    parser.add_argument('--no-optimize', dest='optimize', action='store_false', help='Disable optimization')
+    
+    args = parser.parse_args()
+    compress_images_in_directory(args.input_dir, args.output_dir, args.quality, args.optimize)
+
+if __name__ == "__main__":
+    main()
 
 

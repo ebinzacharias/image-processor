@@ -96,7 +96,16 @@ def detect_and_copy_images(source_folder, destination_folder):
         print("Images and videos organized successfully!")
     except Exception as e:
         print(f"Error while organizing images and videos: {e}")
-source_folder = "ssd/"
-destination_folder = "ssd/_sorted/"
-detect_and_copy_images(source_folder, destination_folder)
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='Organize images and videos by orientation and type')
+    parser.add_argument('source_folder', help='Source folder containing images and videos')
+    parser.add_argument('destination_folder', help='Destination folder for organized files')
+    
+    args = parser.parse_args()
+    detect_and_copy_images(args.source_folder, args.destination_folder)
+
+if __name__ == "__main__":
+    main()
 
